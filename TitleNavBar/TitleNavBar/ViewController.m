@@ -37,6 +37,7 @@ static CGFloat const navBarH = 64;
     [self setupTitleScrollView];
     [self setupContentScrollView];
     [self addChildViewController];
+    [self setupTitle];
     
 }
 
@@ -93,6 +94,35 @@ static CGFloat const navBarH = 64;
     ScienceViewController *vc5 = [[ScienceViewController alloc] init];
     vc5.title = @"科技";
     [self addChildViewController:vc5];
+}
+
+#pragma mark - 设置标题
+- (void)setupTitle
+{
+    NSUInteger count = self.childViewControllers.count;
+    
+    CGFloat x = 0;
+    CGFloat w = 100;
+    CGFloat h = titleH;
+    
+    for (int i = 0; i < count; i++)
+    {
+        UIViewController *vc = self.childViewControllers[i];
+        
+        x = i * w;
+        CGRect rect = CGRectMake(x, 0, w, h);
+        UIButton *btn = [[UIButton alloc] initWithFrame:rect];
+        
+        [btn setTitle:vc.title forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+        
+        [self.titleScrollView addSubview:btn];
+        
+    }
+    self.titleScrollView.contentSize = CGSizeMake(count * w, 0);
+    self.titleScrollView.showsHorizontalScrollIndicator = NO;
 }
 
 
