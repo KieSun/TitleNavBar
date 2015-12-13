@@ -15,6 +15,12 @@
 		9BB476C21C1D841600C33B54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BB476C01C1D841600C33B54 /* LaunchScreen.storyboard */; };
 		9BB476CD1C1D841600C33B54 /* TitleNavBarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB476CC1C1D841600C33B54 /* TitleNavBarTests.m */; };
 		9BB476D81C1D841600C33B54 /* TitleNavBarUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB476D71C1D841600C33B54 /* TitleNavBarUITests.m */; };
+		9BB477051C1D877400C33B54 /* TopLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB476FA1C1D877400C33B54 /* TopLineViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9BB477061C1D877400C33B54 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB476FC1C1D877400C33B54 /* HotViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9BB477071C1D877400C33B54 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB476FE1C1D877400C33B54 /* VideoViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9BB477081C1D877400C33B54 /* SocietyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB477001C1D877400C33B54 /* SocietyViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9BB477091C1D877400C33B54 /* ReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB477021C1D877400C33B54 /* ReaderViewController.m */; settings = {ASSET_TAGS = (); }; };
+		9BB4770A1C1D877400C33B54 /* ScienceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB477041C1D877400C33B54 /* ScienceViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,18 @@
 		9BB476D31C1D841600C33B54 /* TitleNavBarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TitleNavBarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB476D71C1D841600C33B54 /* TitleNavBarUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TitleNavBarUITests.m; sourceTree = "<group>"; };
 		9BB476D91C1D841600C33B54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BB476F91C1D877400C33B54 /* TopLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopLineViewController.h; sourceTree = "<group>"; };
+		9BB476FA1C1D877400C33B54 /* TopLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopLineViewController.m; sourceTree = "<group>"; };
+		9BB476FB1C1D877400C33B54 /* HotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotViewController.h; sourceTree = "<group>"; };
+		9BB476FC1C1D877400C33B54 /* HotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotViewController.m; sourceTree = "<group>"; };
+		9BB476FD1C1D877400C33B54 /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
+		9BB476FE1C1D877400C33B54 /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
+		9BB476FF1C1D877400C33B54 /* SocietyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocietyViewController.h; sourceTree = "<group>"; };
+		9BB477001C1D877400C33B54 /* SocietyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocietyViewController.m; sourceTree = "<group>"; };
+		9BB477011C1D877400C33B54 /* ReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderViewController.h; sourceTree = "<group>"; };
+		9BB477021C1D877400C33B54 /* ReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderViewController.m; sourceTree = "<group>"; };
+		9BB477031C1D877400C33B54 /* ScienceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScienceViewController.h; sourceTree = "<group>"; };
+		9BB477041C1D877400C33B54 /* ScienceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScienceViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +119,7 @@
 		9BB476B11C1D841600C33B54 /* TitleNavBar */ = {
 			isa = PBXGroup;
 			children = (
+				9BB476F81C1D876C00C33B54 /* ChildViewController */,
 				9BB476B51C1D841600C33B54 /* AppDelegate.h */,
 				9BB476B61C1D841600C33B54 /* AppDelegate.m */,
 				9BB476B81C1D841600C33B54 /* ViewController.h */,
@@ -138,6 +157,25 @@
 				9BB476D91C1D841600C33B54 /* Info.plist */,
 			);
 			path = TitleNavBarUITests;
+			sourceTree = "<group>";
+		};
+		9BB476F81C1D876C00C33B54 /* ChildViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9BB476F91C1D877400C33B54 /* TopLineViewController.h */,
+				9BB476FA1C1D877400C33B54 /* TopLineViewController.m */,
+				9BB476FB1C1D877400C33B54 /* HotViewController.h */,
+				9BB476FC1C1D877400C33B54 /* HotViewController.m */,
+				9BB476FD1C1D877400C33B54 /* VideoViewController.h */,
+				9BB476FE1C1D877400C33B54 /* VideoViewController.m */,
+				9BB476FF1C1D877400C33B54 /* SocietyViewController.h */,
+				9BB477001C1D877400C33B54 /* SocietyViewController.m */,
+				9BB477011C1D877400C33B54 /* ReaderViewController.h */,
+				9BB477021C1D877400C33B54 /* ReaderViewController.m */,
+				9BB477031C1D877400C33B54 /* ScienceViewController.h */,
+				9BB477041C1D877400C33B54 /* ScienceViewController.m */,
+			);
+			path = ChildViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,8 +311,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB477051C1D877400C33B54 /* TopLineViewController.m in Sources */,
 				9BB476BA1C1D841600C33B54 /* ViewController.m in Sources */,
+				9BB477071C1D877400C33B54 /* VideoViewController.m in Sources */,
+				9BB477091C1D877400C33B54 /* ReaderViewController.m in Sources */,
+				9BB4770A1C1D877400C33B54 /* ScienceViewController.m in Sources */,
+				9BB477061C1D877400C33B54 /* HotViewController.m in Sources */,
 				9BB476B71C1D841600C33B54 /* AppDelegate.m in Sources */,
+				9BB477081C1D877400C33B54 /* SocietyViewController.m in Sources */,
 				9BB476B41C1D841600C33B54 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
