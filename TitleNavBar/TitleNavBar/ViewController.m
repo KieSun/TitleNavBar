@@ -20,15 +20,27 @@ static CGFloat const navBarH = 64;
 #define YCKScreenW [UIScreen mainScreen].bounds.size.width
 #define YCKScreenH [UIScreen mainScreen].bounds.size.height
 
-@interface ViewController ()
+@interface ViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, weak) UIScrollView *titleScrollView;
 @property (nonatomic, weak) UIScrollView *contentScrollView;
+// 选中按钮
+@property (nonatomic, weak) UIButton *selTitleButton;
+
+@property (nonatomic, strong) NSMutableArray *buttons;
 
 @end
 
 @implementation ViewController
 
+- (NSMutableArray *)buttons
+{
+    if (!_buttons)
+    {
+        _buttons = [NSMutableArray array];
+    }
+    return _buttons;
+}
 
 - (void)viewDidLoad
 {
@@ -38,6 +50,12 @@ static CGFloat const navBarH = 64;
     [self setupContentScrollView];
     [self addChildViewController];
     [self setupTitle];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.contentScrollView.contentSize = CGSizeMake(self.childViewControllers.count * YCKScreenW, 0);
+    self.contentScrollView.pagingEnabled = YES;
+    self.contentScrollView.showsHorizontalScrollIndicator = NO;
+    self.contentScrollView.delegate = self;
     
 }
 
@@ -49,7 +67,7 @@ static CGFloat const navBarH = 64;
     CGRect rect = CGRectMake(0, y, YCKScreenW, titleH);
     
     UIScrollView *titleScrollView = [[UIScrollView alloc] initWithFrame:rect];
-    titleScrollView.backgroundColor = [UIColor redColor];
+    titleScrollView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:titleScrollView];
     
     self.titleScrollView = titleScrollView;
@@ -62,7 +80,7 @@ static CGFloat const navBarH = 64;
     CGRect rect = CGRectMake(0, y, YCKScreenW, YCKScreenH - navBarH);
     
     UIScrollView *contentScrollView = [[UIScrollView alloc] initWithFrame:rect];
-    contentScrollView.backgroundColor = [UIColor yellowColor];
+//    contentScrollView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:contentScrollView];
     
     self.contentScrollView = contentScrollView;
@@ -113,17 +131,91 @@ static CGFloat const navBarH = 64;
         CGRect rect = CGRectMake(x, 0, w, h);
         UIButton *btn = [[UIButton alloc] initWithFrame:rect];
         
+        btn.tag = i;
         [btn setTitle:vc.title forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
         
+        [btn addTarget:self action:@selector(chick:) forControlEvents:UIControlEventTouchDown];
+        
+        [self.buttons addObject:btn];
         [self.titleScrollView addSubview:btn];
+        
+        if (i == 0)
+        {
+            [self chick:btn];
+        }
         
     }
     self.titleScrollView.contentSize = CGSizeMake(count * w, 0);
     self.titleScrollView.showsHorizontalScrollIndicator = NO;
 }
+
+// 按钮点击
+- (void)chick:(UIButton *)btn
+{
+    [self selTitleBtn:btn];
+    
+    NSUInteger i = btn.tag;
+    
+    [self setUpOneChildViewController:i];
+    
+    
+}
+// 选中按钮
+- (void)selTitleBtn:(UIButton *)btn
+{
+    [self.selTitleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    
+    self.selTitleButton = btn;
+    [self setupTitleCenter:btn];
+}
+
+- (void)setUpOneChildViewController:(NSUInteger)i
+{
+    CGFloat x = i * YCKScreenW;
+    
+    UIViewController *vc = self.childViewControllers[i];
+    
+    if (vc.view.superview) {
+        return;
+    }
+    vc.view.frame = CGRectMake(x, 0, YCKScreenW, YCKScreenH - self.contentScrollView.frame.origin.y);
+    
+    [self.contentScrollView addSubview:vc.view];
+    self.contentScrollView.contentOffset = CGPointMake(x, 0);
+}
+
+- (void)setupTitleCenter:(UIButton *)btn
+{
+    CGFloat offset = btn.center.x - YCKScreenW * 0.5;
+    
+    if (offset < 0)
+    {
+        offset = 0;
+    }
+    
+    CGFloat maxOffset = self.titleScrollView.contentSize.width - YCKScreenW;
+    if (offset > maxOffset)
+    {
+        offset = maxOffset;
+    }
+    
+    [self.titleScrollView setContentOffset:CGPointMake(offset, 0) animated:YES];
+    
+    
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSUInteger i = self.contentScrollView.contentOffset.x / YCKScreenW;
+    [self selTitleBtn:self.buttons[i]];
+    [self setUpOneChildViewController:i];
+}
+
+
 
 
 
