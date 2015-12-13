@@ -16,6 +16,7 @@
 
 static CGFloat const titleH = 44;
 static CGFloat const navBarH = 64;
+static CGFloat const maxTitleScale = 1.3;
 
 #define YCKScreenW [UIScreen mainScreen].bounds.size.width
 #define YCKScreenH [UIScreen mainScreen].bounds.size.height
@@ -49,14 +50,23 @@ static CGFloat const navBarH = 64;
     [self setupTitleScrollView];
     [self setupContentScrollView];
     [self addChildViewController];
-    [self setupTitle];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.contentScrollView.contentSize = CGSizeMake(self.childViewControllers.count * YCKScreenW, 0);
-    self.contentScrollView.pagingEnabled = YES;
-    self.contentScrollView.showsHorizontalScrollIndicator = NO;
-    self.contentScrollView.delegate = self;
-    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self setupTitle];
+        
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.contentScrollView.contentSize = CGSizeMake(self.childViewControllers.count * YCKScreenW, 0);
+        self.contentScrollView.pagingEnabled = YES;
+        self.contentScrollView.showsHorizontalScrollIndicator = NO;
+        self.contentScrollView.delegate = self;
+
+    });
 }
 
 #pragma mark - 设置头部标题栏
@@ -166,7 +176,10 @@ static CGFloat const navBarH = 64;
 - (void)selTitleBtn:(UIButton *)btn
 {
     [self.selTitleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    self.selTitleButton.transform = CGAffineTransformIdentity;
+    
     [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    btn.transform = CGAffineTransformMakeScale(maxTitleScale, maxTitleScale);
     
     self.selTitleButton = btn;
     [self setupTitleCenter:btn];
@@ -214,6 +227,44 @@ static CGFloat const navBarH = 64;
     [self selTitleBtn:self.buttons[i]];
     [self setUpOneChildViewController:i];
 }
+
+// 只要滚动UIScrollView就会调用
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+
+    CGFloat offsetX = scrollView.contentOffset.x;
+    NSInteger leftIndex = offsetX / YCKScreenW;
+    NSInteger rightIndex = leftIndex + 1;
+    
+//    NSLog(@"%zd,%zd",leftIndex,rightIndex);
+
+    UIButton *leftButton = self.buttons[leftIndex];
+    
+    UIButton *rightButton = nil;
+    if (rightIndex < self.buttons.count) {
+        rightButton = self.buttons[rightIndex];
+    }
+    
+    CGFloat scaleR = offsetX / YCKScreenW - leftIndex;
+    
+    CGFloat scaleL = 1 - scaleR;
+    
+
+    CGFloat transScale = maxTitleScale - 1;
+    leftButton.transform = CGAffineTransformMakeScale(scaleL * transScale + 1, scaleL * transScale + 1);
+    
+    rightButton.transform = CGAffineTransformMakeScale(scaleR * transScale + 1, scaleR * transScale + 1);
+    
+    
+    UIColor *rightColor = [UIColor colorWithRed:scaleR green:0 blue:0 alpha:1];
+    UIColor *leftColor = [UIColor colorWithRed:scaleL green:0 blue:0 alpha:1];
+
+    [leftButton setTitleColor:leftColor forState:UIControlStateNormal];
+    [rightButton setTitleColor:rightColor forState:UIControlStateNormal];
+    
+    
+}
+
 
 
 
