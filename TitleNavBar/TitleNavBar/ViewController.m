@@ -50,24 +50,16 @@ static CGFloat const maxTitleScale = 1.3;
     [self setupTitleScrollView];
     [self setupContentScrollView];
     [self addChildViewController];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    [self setupTitle];
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [self setupTitle];
-        
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        self.contentScrollView.contentSize = CGSizeMake(self.childViewControllers.count * YCKScreenW, 0);
-        self.contentScrollView.pagingEnabled = YES;
-        self.contentScrollView.showsHorizontalScrollIndicator = NO;
-        self.contentScrollView.delegate = self;
-
-    });
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.contentScrollView.contentSize = CGSizeMake(self.childViewControllers.count * YCKScreenW, 0);
+    self.contentScrollView.pagingEnabled = YES;
+    self.contentScrollView.showsHorizontalScrollIndicator = NO;
+    self.contentScrollView.delegate = self;
 }
+
+
 
 #pragma mark - 设置头部标题栏
 - (void)setupTitleScrollView
@@ -167,9 +159,10 @@ static CGFloat const maxTitleScale = 1.3;
     [self selTitleBtn:btn];
     
     NSUInteger i = btn.tag;
+    CGFloat x = i * YCKScreenW;
     
     [self setUpOneChildViewController:i];
-    
+    self.contentScrollView.contentOffset = CGPointMake(x, 0);
     
 }
 // 选中按钮
@@ -197,7 +190,7 @@ static CGFloat const maxTitleScale = 1.3;
     vc.view.frame = CGRectMake(x, 0, YCKScreenW, YCKScreenH - self.contentScrollView.frame.origin.y);
     
     [self.contentScrollView addSubview:vc.view];
-    self.contentScrollView.contentOffset = CGPointMake(x, 0);
+    
 }
 
 - (void)setupTitleCenter:(UIButton *)btn
